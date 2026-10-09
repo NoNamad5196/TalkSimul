@@ -503,13 +503,14 @@ describe("local API privacy and permissions", () => {
   );
 
   it("requires the exact opt-in value and does not expose environment data", () => {
+    expect(readConfig({}).textModel).toBe("gpt-6-luna");
     const config = readConfig({
       OPENAI_API_KEY: "secret",
       TALK_SIMUL_ENABLE_PAID_API: "TRUE",
       OPENAI_TEXT_MODEL: "bad/name",
     });
     expect(config.enabled).toBe(false);
-    expect(config.textModel).toBe("gpt-5.4-mini");
+    expect(config.textModel).toBe("gpt-6-luna");
   });
 
   it("rejects foreign origins, missing origins and rebinding hostnames before provider access", async () => {

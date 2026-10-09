@@ -71,7 +71,9 @@ TALK_SIMUL_ENABLE_PAID_API=true
 
 키가 설정되어도 비용 허용 플래그가 `false`이면 외부 AI 호출을 하지 않습니다. 상태 표시의 “준비됨”은 로컬 설정 확인이며, 계정의 모델 권한이나 실제 연결 성공을 뜻하지 않습니다. 모델 접근 가능 여부와 결제·사용량 한도는 계정에서 확인해야 합니다.
 
-기본 모델은 `gpt-realtime-2.1`(회화), `gpt-5.4-mini`(힌트·복기), `gpt-4o-mini-transcribe`(발화 전사)입니다. 공식 문서 확인일은 2026-10-09이며 `.env`에서 모델을 변경할 수 있습니다. [API 선택 근거와 계약](server/API-NOTES.md)을 참고하세요.
+기본 모델은 `gpt-realtime-2.1`(회화), `gpt-6-luna`(힌트·복기), `gpt-4o-mini-transcribe`(발화 전사)입니다. 공식 문서 확인일은 2026-10-09입니다. 힌트·복기는 Responses API와 `reasoning.effort: low`를 사용합니다. GPT-6 Luna는 오디오를 지원하지 않으므로 회화·전사·TTS는 각 음성 모델을 사용합니다. [API 선택 근거와 계약](server/API-NOTES.md)을 참고하세요.
+
+기존 `.env`나 Vercel 환경변수에 `OPENAI_TEXT_MODEL`을 설정했다면 코드의 기본값보다 우선합니다. GPT-6 Luna를 쓰려면 해당 값을 `gpt-6-luna`로 변경한 뒤 로컬 서버를 다시 시작하거나 Vercel에 다시 배포하세요.
 
 ### 데이터와 음성
 

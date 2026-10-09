@@ -60,7 +60,7 @@ export function readConfig(env: NodeJS.ProcessEnv = process.env): ServerConfig {
     apiKey: env.OPENAI_API_KEY?.trim() ?? "",
     enabled: env.TALK_SIMUL_ENABLE_PAID_API === "true",
     realtimeModel: modelName(env.OPENAI_REALTIME_MODEL, "gpt-realtime-2.1"),
-    textModel: modelName(env.OPENAI_TEXT_MODEL, "gpt-5.4-mini"),
+    textModel: modelName(env.OPENAI_TEXT_MODEL, "gpt-6-luna"),
     transcriptionModel: modelName(
       env.OPENAI_TRANSCRIPTION_MODEL,
       "gpt-4o-mini-transcribe",

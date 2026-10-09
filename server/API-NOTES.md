@@ -5,13 +5,15 @@
 - [WebRTC 공식 문서](https://developers.openai.com/api/docs/guides/voice-webrtc)의 **Realtime API / unified interface**에 따라 `POST /v1/realtime/calls`에 SDP와 session JSON을 multipart로 전송합니다. 같은 페이지의 GPT-Live API와 섞지 않았습니다. 일반 API 키는 서버에서만 사용하고 브라우저에는 SDP 응답만 반환합니다.
 - [Realtime conversations](https://developers.openai.com/api/docs/guides/realtime-conversations)에 나오는 `gpt-realtime-2.1`을 음성 기본 모델로 정했습니다. `output_modalities: ["audio"]`로 음성과 전사 이벤트를 받습니다.
 - [Realtime client events](https://developers.openai.com/api/reference/resources/realtime/client-events)의 `audio.input.transcription`, `semantic_vad`, `audio.output.speed` 설정을 사용합니다. 전사는 모델이 들은 원본과 완전히 같다고 보장되지 않으므로 UI에서 인식된 텍스트로 취급해야 합니다. 기본 전사 모델은 이 API에서 지원하는 `gpt-4o-mini-transcribe`입니다.
-- [GPT-5.4 Mini 모델 문서](https://developers.openai.com/api/docs/models/gpt-5.4-mini)에서 Responses와 Structured Outputs 지원을 확인하여 짧은 힌트·복기 기본 모델로 선택했습니다. 계정별 모델 접근 권한은 다를 수 있습니다.
+- 사용자 요청에 따라 힌트·복기 기본 모델을 `gpt-6-luna`로 변경했습니다. [GPT-6 Luna 모델 문서](https://developers.openai.com/api/docs/models/gpt-6-luna)에서 Responses, Structured Outputs 및 `reasoning.effort: low` 지원을 확인했습니다. 기존 Responses 요청과 `low` 설정, 한국어 설명·원문 근거 검증 계약을 유지합니다. 오디오는 지원하지 않으므로 회화·전사·TTS 모델은 그대로 사용합니다. 계정별 모델 접근 권한은 다를 수 있습니다.
 - [Structured Outputs](https://developers.openai.com/api/docs/guides/structured-outputs)의 Responses `text.format` JSON Schema 방식으로 힌트와 복기를 요청합니다. 서버에서 다시 검사하고, 복기의 `messageId` 및 `original`이 실제 사용자 발화와 정확히 일치하는지 확인합니다. 형식 보장만으로 사실성을 보장할 수 없으므로 이 검증이 별도로 필요합니다.
 - [Text to speech](https://developers.openai.com/api/docs/guides/text-to-speech)의 `POST /v1/audio/speech`를 실제 모드의 발음 대체 경로로 사용합니다. `gpt-4o-mini-tts`, `marin`, MP3 형식이며 선택 언어와 난이도별 속도를 반영합니다. 기기 음성이 없거나 실패할 때만 요청하며, 화면에서 AI 생성 음성임을 알립니다. 데모에서는 호출하지 않습니다.
 
 ## 안전한 로컬 설정
 
 프로젝트의 `.env.example`을 `.env`로 복사하고 키를 로컬 파일에서 입력합니다. 키를 채팅에 보내거나 `VITE_` 환경 변수에 넣지 마세요. `.env`는 Git에서 제외합니다. `TALK_SIMUL_ENABLE_PAID_API=false`가 기본이며, 키가 있어도 `true`로 명시하기 전에는 외부 API 요청을 보내지 않습니다.
+
+`OPENAI_TEXT_MODEL`을 명시한 기존 로컬·Vercel 환경에서는 해당 값이 코드의 기본값보다 우선합니다. 기본 모델 변경만으로 기존 배포 환경변수나 과거 실검증 기록이 바뀌지는 않습니다.
 
 실제 모드를 시작하면 마이크 음성이 브라우저의 WebRTC 연결을 통해 OpenAI로 전송됩니다. 힌트·복기에는 선택 설정과 필요한 대화 전사가 서버를 거쳐 OpenAI Responses API로 전송됩니다. 서버는 원본 음성, 전사, 키를 파일이나 로그에 기록하지 않습니다. `store:false`는 Responses 저장 옵션이며 제공자의 다른 데이터 보존 정책까지 끄는 뜻은 아닙니다. 로컬 연습 기록은 프론트엔드의 기기 저장소를 사용합니다.
 
