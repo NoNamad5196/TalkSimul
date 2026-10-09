@@ -1,0 +1,17 @@
+node_modules/
+dist/
+.env
+.env.*
+!.env.example
+test-results/
+playwright-report/
+tests/live/fixtures/
+tests/live/results/
+*.log
+.DS_Store
+.vercel/
+*.tar.gz
+hosted/
+.codex/
+.agents/
+.aws/

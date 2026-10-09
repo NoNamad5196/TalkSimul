@@ -1,0 +1,90 @@
+{
+  "title": "모루와 한마디",
+  "provider": "Vercel",
+  "url": "https://moru-talksimul.vercel.app",
+  "status": "READY",
+  "audience": "Vercel-account-protected",
+  "ssoProtection": "all",
+  "projectId": "prj_Ubt9XWZ1axL2ubkWqLa3uSfirkjB",
+  "team": "nonamad5196s-projects",
+  "deploymentId": "dpl_9ahbA5fqrLSQoFE2gFonRxCEoUhx",
+  "deploymentUrl": "https://moru-talksimul-mju21r65y-nonamad5196s-projects.vercel.app",
+  "sourceDirectory": ".",
+  "verifiedAt": "2026-10-09T08:05:07.725Z",
+  "validation": {
+    "typecheck": "passed",
+    "productionBuild": "passed",
+    "compiledNodeEsmImport": "passed",
+    "unitTestsBeforeFinalCancellationCase": 102,
+    "finalServerTests": 26,
+    "currentTotalUnitTests": 103,
+    "anonymousWebAndApi": "302 to Vercel login",
+    "authenticatedBrowser": "home and AI-ready state verified",
+    "apiChecks": [
+      {
+        "path": "/api/status",
+        "status": 200,
+        "configured": true,
+        "enabled": true
+      },
+      {
+        "path": "/api/hint",
+        "status": 200,
+        "fields": [
+          "text",
+          "meaning",
+          "note"
+        ],
+        "hasKorean": true
+      },
+      {
+        "path": "/api/review",
+        "status": 200,
+        "fields": [
+          "summary",
+          "feedback",
+          "assessment",
+          "insufficient"
+        ],
+        "hasKorean": true
+      },
+      {
+        "path": "/api/speech",
+        "status": 200,
+        "fields": [
+          "audio",
+          "mimeType"
+        ],
+        "audioResponseCharacters": 67620
+      }
+    ],
+    "ttsBytes": 50688,
+    "hostedWebRtcTest": "passed: English and Japanese synthetic speech end to end",
+    "physicalMicrophoneTest": "not-performed",
+    "unitTests": 103,
+    "offlineUiTests": 16,
+    "mobileViewport": "390px review passed for both languages",
+    "historyReload": "transcript and review persisted without microphone restart",
+    "acceptanceReport": "docs/vercel-live-verification.json"
+  },
+  "previousDeployment": {
+    "title": "모루와 한마디",
+    "url": "https://moru-talksimul.rare-acorn-9129.chatgpt.site",
+    "status": "succeeded",
+    "audience": "owner-private",
+    "projectId": "appgprj_6ac88b75f83c8191be6fa2884c67fed3",
+    "deploymentId": "appgdep_6ac88e3df16c8191891ebcb300997ca4",
+    "versionId": "appgprj_6ac88b75f83c8191be6fa2884c67fed3~appgver_6facaba819f08191990cb8f21545272a",
+    "sourceCommit": "d1511b785dd982645ab26b0f55765893851c46e5",
+    "sourceDirectory": "hosted",
+    "environmentRevision": 1,
+    "deployedAt": "2026-10-09T06:48:46.892231+00:00",
+    "validation": {
+      "unitTests": 102,
+      "typecheck": "passed",
+      "build": "passed",
+      "bundledWorkerImport": "passed",
+      "hostedMicrophoneTest": "not-performed"
+    }
+  }
+}

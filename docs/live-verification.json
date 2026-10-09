@@ -1,0 +1,197 @@
+{
+  "verifiedAt": "2026-10-09T06:27:58.488Z",
+  "scope": "Actual OpenAI APIs with synthetic WAV input through WebRTC; no physical microphone capture or human speaker listening",
+  "browser": "Microsoft Edge 154.0.4258.62",
+  "english": {
+    "configuration": {
+      "language": "en",
+      "scenario": "cafe",
+      "level": "beginner",
+      "mode": "live"
+    },
+    "sessionSeconds": 47.913,
+    "api": [
+      {
+        "path": "/api/realtime",
+        "status": 200
+      },
+      {
+        "path": "/api/hint",
+        "status": 200
+      },
+      {
+        "path": "/api/speech",
+        "status": 200
+      },
+      {
+        "path": "/api/review",
+        "status": 200
+      }
+    ],
+    "voiceTranscripts": [
+      {
+        "id": "item_EWy6AbwS805VcBiu2u7Rd",
+        "text": "I would like a small hot latte, please.",
+        "source": "voice"
+      },
+      {
+        "id": "item_EWy6TJbvHuvBEkT3MDHql",
+        "text": "I went to a cafe with my friend yesterday.",
+        "source": "voice"
+      }
+    ],
+    "hint": {
+      "text": "A muffin, please.",
+      "meaning": "머핀 하나 주세요."
+    },
+    "inboundAudio": [
+      {
+        "bytesReceived": 257963,
+        "packetsReceived": 2172,
+        "totalAudioEnergy": 1.0339800009125186,
+        "totalSamplesReceived": 2086560,
+        "totalSamplesDuration": 43.86999999999984
+      }
+    ],
+    "checks": {
+      "actualWebRTCConnected": true,
+      "configurationApplied": true,
+      "firstVoiceTurn": true,
+      "hintPausedBothDirections": true,
+      "hintAudioPlaybackEvents": true,
+      "hintSpeechApi200": true,
+      "hintReturnedWithoutFakeUtterance": true,
+      "secondVoiceTurnAfterHint": true,
+      "actualAIAudioPackets": true,
+      "appTransportCleanup": true,
+      "groundedActualReview": true,
+      "scenarioAndLanguageInActualConversation": true
+    },
+    "incompleteTranscription": false,
+    "review": {
+      "summary": "카페 상황에서 주문과 간단한 과거 경험을 자연스럽게 말했어요. 전반적으로 의미 전달이 잘 됩니다.",
+      "feedback": [
+        {
+          "messageId": "item_EWy6TJbvHuvBEkT3MDHql",
+          "original": "I went to a cafe with my friend yesterday.",
+          "improved": "I went to a cafe with a friend yesterday.",
+          "explanation": "‘my friend’도 맞지만, 처음 언급하는 친구라면 ‘a friend’가 더 자연스럽습니다. 의미는 그대로예요.",
+          "category": "자연스러움"
+        }
+      ],
+      "assessment": {
+        "delivery": "의미 전달이 잘 됩니다. 카페에서 하고 싶은 말이 분명하게 전달돼요.",
+        "naturalness": "전반적으로 자연스럽습니다. 한 표현은 더 자연스럽게 바꿔 볼 수 있어요.",
+        "grammar": "문법 오류는 거의 없어요.",
+        "vocabulary": "기본 어휘를 잘 사용했고, 상황에 맞는 표현을 썼어요."
+      },
+      "insufficient": false
+    }
+  },
+  "japanese": {
+    "configuration": {
+      "language": "ja",
+      "scenario": "cafe",
+      "level": "challenge",
+      "mode": "live"
+    },
+    "sessionSeconds": 38.581,
+    "api": [
+      {
+        "path": "/api/realtime",
+        "status": 200
+      },
+      {
+        "path": "/api/hint",
+        "status": 200
+      },
+      {
+        "path": "/api/review",
+        "status": 200
+      }
+    ],
+    "voiceTranscripts": [
+      {
+        "id": "item_EWyBkNYiz1rdeCAHRrFBo",
+        "text": "ホットのカフェラテを一つお願いします。",
+        "source": "voice"
+      },
+      {
+        "id": "item_EWyC22Y5fuivVTvCnIQT2",
+        "text": "昨日、友達とカフェに行きました。",
+        "source": "voice"
+      }
+    ],
+    "hint": {
+      "text": "ミディアムでお願いします。スコーンも一つ追加で、店内でいただきます。",
+      "meaning": "미디엄으로 부탁합니다. 스콘도 하나 추가하고, 매장에서 먹겠습니다."
+    },
+    "inboundAudio": [
+      {
+        "bytesReceived": 186352,
+        "packetsReceived": 1738,
+        "totalAudioEnergy": 0.7369698778827914,
+        "totalSamplesReceived": 1667520,
+        "totalSamplesDuration": 35.150000000001576
+      }
+    ],
+    "checks": {
+      "actualWebRTCConnected": true,
+      "configurationApplied": true,
+      "firstVoiceTurn": true,
+      "hintPausedBothDirections": true,
+      "hintAudioPlaybackEvents": true,
+      "hintReturnedWithoutFakeUtterance": true,
+      "secondVoiceTurnAfterHint": true,
+      "actualAIAudioPackets": true,
+      "appTransportCleanup": true,
+      "groundedActualReview": true,
+      "scenarioAndLanguageInActualConversation": true
+    },
+    "incompleteTranscription": false,
+    "review": {
+      "summary": "카페에서 주문할 때 정중하게 말하는 표현은 잘 사용했습니다. 다만 한 발화는 주문 흐름과는 맞지 않는 과거 경험 이야기였지만, 문장 자체는 자연스러웠습니다.",
+      "feedback": [],
+      "assessment": {
+        "delivery": "대체로 의사 전달이 잘 됩니다. 주문 표현도 자연스럽고, 짧은 과거 진술도 명확합니다.",
+        "naturalness": "전체적으로 자연스럽습니다. 다만 대화 상황이 주문 중심이라 두 번째 발화는 맥락상 조금 벗어났습니다.",
+        "grammar": "문법상 큰 오류는 보이지 않습니다. 조사나 말끝도 무난합니다.",
+        "vocabulary": "기본 어휘 사용이 적절합니다. ‘ホットのカフェラテ’, ‘友達とカフェに行きました’ 모두 자연스럽습니다."
+      },
+      "insufficient": false
+    }
+  },
+  "knownFailuresFixed": [
+    {
+      "issue": "Japanese review changed a past experience into a new order",
+      "action": "Meaning-preservation instructions separated corrections from conversation advice; same transcript rechecked"
+    },
+    {
+      "issue": "First recheck explanation was in Japanese",
+      "action": "Korean output instructions and schema validation added; second recheck returned Korean with no forced corrections"
+    },
+    {
+      "issue": "Sufficient transcript with no corrections had a no-utterance message",
+      "action": "Separate sufficient/no-suggestion UI; offline browser regression verified"
+    }
+  ],
+  "semanticRecheck": {
+    "providerRequests": 2,
+    "httpStatus": 200,
+    "sourceReport": "tests/live/results/2026-10-09T06-15-55-942Z/report.json"
+  },
+  "testScope": {
+    "unitAndHttp": 94,
+    "offlineBrowserScenarios": 14,
+    "successfulRealConversationScenarios": 2,
+    "webRTCSessionAttempts": 3,
+    "exactBillingAmountVerified": false,
+    "physicalMicrophoneVerified": false,
+    "audibleListeningVerified": false
+  },
+  "sourceReports": [
+    "tests/live/results/2026-10-09T06-10-07-341Z/report.json",
+    "tests/live/results/2026-10-09T06-15-55-942Z/report.json",
+    "tests/live/results/review-meaning-check.json"
+  ]
+}

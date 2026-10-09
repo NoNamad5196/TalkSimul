@@ -1,0 +1,42 @@
+{
+  "url": "https://moru-talksimul.vercel.app",
+  "checkedAt": "2026-10-09T07:32:56.535Z",
+  "checks": [
+    {
+      "path": "/api/status",
+      "status": 200,
+      "configured": true,
+      "enabled": true
+    },
+    {
+      "path": "/api/hint",
+      "status": 200,
+      "fields": [
+        "text",
+        "meaning",
+        "note"
+      ],
+      "hasKorean": true
+    },
+    {
+      "path": "/api/review",
+      "status": 200,
+      "fields": [
+        "summary",
+        "feedback",
+        "assessment",
+        "insufficient"
+      ],
+      "hasKorean": true
+    },
+    {
+      "path": "/api/speech",
+      "status": 200,
+      "fields": [
+        "audio",
+        "mimeType"
+      ],
+      "audioResponseCharacters": 67620
+    }
+  ]
+}

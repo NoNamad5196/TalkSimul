@@ -1,0 +1,17 @@
+.env
+.env.*
+!.env.example
+.git
+.codex
+.agents
+hosted
+node_modules
+dist
+docs
+tests/live/fixtures
+tests/live/results
+test-results
+playwright-report
+*.tar.gz
+*.log
+scripts/private-*

@@ -1,0 +1,224 @@
+{
+  "verifiedAt": "2026-10-09T08:05:07.725Z",
+  "deploymentId": "dpl_9ahbA5fqrLSQoFE2gFonRxCEoUhx",
+  "url": "https://moru-talksimul.vercel.app",
+  "browser": "Microsoft Edge 154.0.4258.62",
+  "unitTests": {
+    "passed": 103
+  },
+  "offlineUiTests": {
+    "passed": 16,
+    "execution": "14 existing cases plus 2 WebMCP integration cases"
+  },
+  "typecheck": "passed",
+  "noRealMicrophone": true,
+  "audibleListeningVerified": false,
+  "physicalMobileDeviceTest": false,
+  "credentialsRecorded": false,
+  "sessionLimitSeconds": 90,
+  "anonymousProtection": {
+    "canonical": {
+      "page": 302,
+      "statusApi": 302,
+      "hintPost": 401
+    },
+    "deployment": {
+      "page": 302,
+      "statusApi": 302,
+      "hintPost": 401
+    },
+    "redirectHost": "vercel.com"
+  },
+  "results": [
+    {
+      "language": "en",
+      "configuration": {
+        "language": "en",
+        "scenario": "cafe",
+        "level": "beginner",
+        "mode": "live"
+      },
+      "success": true,
+      "sessionElapsedMs": 42023,
+      "checks": {
+        "actualWebRTCConnected": true,
+        "configurationApplied": true,
+        "firstVoiceTurn": true,
+        "hintPausedBothDirections": true,
+        "hintAudioPlaybackEvents": true,
+        "hintSpeechApi200": true,
+        "hintReturnedWithoutFakeUtterance": true,
+        "secondVoiceTurnAfterHint": true,
+        "actualAIAudioPackets": true,
+        "appTransportCleanup": true,
+        "groundedActualReview": true,
+        "scenarioAndLanguageInActualConversation": true,
+        "koreanReviewExplanations": true,
+        "mobileReviewLayout": true,
+        "historySurvivesReload": true
+      },
+      "api": [
+        {
+          "path": "/api/status",
+          "status": 200
+        },
+        {
+          "path": "/api/realtime",
+          "status": 200
+        },
+        {
+          "path": "/api/hint",
+          "status": 200
+        },
+        {
+          "path": "/api/speech",
+          "status": 200
+        },
+        {
+          "path": "/api/review",
+          "status": 200
+        }
+      ],
+      "voiceTranscripts": [
+        "I would like a small hot latte, please.",
+        "I went to a café with my friend yesterday."
+      ],
+      "hint": {
+        "text": "Yes, please. A sandwich, please.",
+        "meaning": "네, 주세요. 샌드위치 하나 부탁합니다."
+      },
+      "hintPlaybackMethod": "server MP3",
+      "review": {
+        "summary": "전반적으로 짧고 쉬운 문장으로 의사를 전달했고, 첫 번째 발화는 카페 상황에 잘 맞았습니다. 두 번째 발화는 문법은 자연스럽지만, 현재 주문을 묻는 상황과는 조금 다른 내용이라 대화 흐름에는 맞지 않았습니다.",
+        "feedback": [],
+        "assessment": {
+          "delivery": "의사는 전반적으로 전달되었습니다. 다만 한 발화는 카페 주문 상황과 직접 연결되지는 않았습니다.",
+          "naturalness": "첫 번째 문장은 자연스럽고, 두 번째 문장도 문법적으로는 자연스럽지만 상황과는 조금 어긋났습니다.",
+          "grammar": "문법 오류는 거의 보이지 않았습니다.",
+          "vocabulary": "기본 어휘를 적절하게 사용했습니다. 특히 latte, café 같은 단어 사용이 자연스러웠습니다."
+        },
+        "insufficient": false
+      },
+      "incompleteTranscription": false,
+      "inboundAudio": [
+        {
+          "bytesReceived": 169161,
+          "packetsReceived": 1822,
+          "totalAudioEnergy": 0.38286917441646245,
+          "totalSamplesReceived": 1749120,
+          "totalSamplesDuration": 36.95000000000122
+        }
+      ],
+      "transportAfterFinish": {
+        "peerStates": [
+          "closed"
+        ],
+        "localTracks": [
+          {
+            "readyState": "ended",
+            "enabled": false
+          }
+        ],
+        "remoteTracks": [
+          {
+            "readyState": "ended",
+            "kind": "audio"
+          }
+        ]
+      }
+    },
+    {
+      "language": "ja",
+      "configuration": {
+        "language": "ja",
+        "scenario": "cafe",
+        "level": "challenge",
+        "mode": "live"
+      },
+      "success": true,
+      "sessionElapsedMs": 45680,
+      "checks": {
+        "actualWebRTCConnected": true,
+        "configurationApplied": true,
+        "firstVoiceTurn": true,
+        "hintPausedBothDirections": true,
+        "hintAudioPlaybackEvents": true,
+        "hintReturnedWithoutFakeUtterance": true,
+        "secondVoiceTurnAfterHint": true,
+        "actualAIAudioPackets": true,
+        "appTransportCleanup": true,
+        "groundedActualReview": true,
+        "scenarioAndLanguageInActualConversation": true,
+        "koreanReviewExplanations": true,
+        "mobileReviewLayout": true,
+        "historySurvivesReload": true
+      },
+      "api": [
+        {
+          "path": "/api/status",
+          "status": 200
+        },
+        {
+          "path": "/api/realtime",
+          "status": 200
+        },
+        {
+          "path": "/api/hint",
+          "status": 200
+        },
+        {
+          "path": "/api/review",
+          "status": 200
+        }
+      ],
+      "voiceTranscripts": [
+        "ホットのカフェラテを一つお願いします。",
+        "昨日、友達とカフェに行きました。"
+      ],
+      "hint": {
+        "text": "では、トールサイズでお願いします。スコーンも一つ付けて、店内でいただきたいのですが、おすすめの味はありますか？",
+        "meaning": "그럼 톨 사이즈로 부탁합니다. 스콘도 하나 같이 하고, 매장에서 먹고 싶은데 추천하는 맛이 있나요?"
+      },
+      "hintPlaybackMethod": "local device speech",
+      "review": {
+        "summary": "카페 상황에서 기본적인 주문 표현은 자연스럽게 말했습니다. 다만 한 발화는 주문 응답이라기보다 과거의 경험을 말하는 내용이라, 대화 흐름과는 조금 어긋났습니다.",
+        "feedback": [],
+        "assessment": {
+          "delivery": "의미는 전달되었습니다. 주문 표현과 과거 경험 진술이 모두 이해됩니다.",
+          "naturalness": "전체적으로 자연스럽지만, 일부 발화는 카페 주문 대화 맥락과 맞지 않았습니다.",
+          "grammar": "문법상 큰 문제는 보이지 않았습니다.",
+          "vocabulary": "기본 어휘 사용은 적절했습니다. 카페 상황에 필요한 표현도 무난합니다."
+        },
+        "insufficient": false
+      },
+      "incompleteTranscription": false,
+      "inboundAudio": [
+        {
+          "bytesReceived": 220494,
+          "packetsReceived": 2091,
+          "totalAudioEnergy": 0.7716107159743476,
+          "totalSamplesReceived": 2006880,
+          "totalSamplesDuration": 42.31000000000015
+        }
+      ],
+      "transportAfterFinish": {
+        "peerStates": [
+          "closed"
+        ],
+        "localTracks": [
+          {
+            "readyState": "ended",
+            "enabled": false
+          }
+        ],
+        "remoteTracks": [
+          {
+            "readyState": "ended",
+            "kind": "audio"
+          }
+        ]
+      }
+    }
+  ],
+  "evidenceDirectory": "tests/live/results/2026-10-09T08-03-25-737Z"
+}
