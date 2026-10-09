@@ -621,7 +621,8 @@ describe("provider contracts without live API usage", () => {
     expect(request.store).toBe(false);
     expect(request.text.format.type).toBe("json_schema");
     expect(request.text.format.strict).toBe(true);
-    expect(JSON.parse(request.input[0].content[0].text).transcript[1]).toEqual({
+    expect(request.input[0].content).toHaveLength(3);
+    expect(JSON.parse(request.input[0].content[1].text).transcript[1]).toEqual({
       id: "u1",
       role: "user",
       text: messages[1].text,
@@ -683,49 +684,96 @@ describe("provider contracts without live API usage", () => {
     expect(body.assessment.delivery).toBe("평가할 발화가 부족해요");
   });
 
-  it("rejects non-Korean review explanations and hint translations before displaying them", async () => {
+  it("omits unchanged corrections only after validating their original evidence", async () => {
     const { provider, post } = await start();
-    const untranslated = "自然な表現です。";
-    const invalidReviews = [
-      { ...review, summary: untranslated },
-      {
-        ...review,
-        feedback: [{ ...review.feedback[0], explanation: untranslated }],
-      },
-      {
-        ...review,
-        assessment: Object.fromEntries(
-          Object.keys(review.assessment).map((field) => [field, untranslated]),
-        ),
-      },
-      ...Object.keys(review.assessment).map((field) => ({
-        ...review,
-        assessment: { ...review.assessment, [field]: untranslated },
-      })),
-    ];
-    for (const invalid of invalidReviews) {
-      provider.mockResolvedValueOnce(responseJson(invalid));
-      const response = await post("/api/review", { config: session, messages });
-      expect(response.status).toBe(502);
-      expect((await response.json()).code).toBe("PROVIDER_INVALID");
-    }
-    const hint = {
-      text: "ホットでお願いします。",
-      meaning: "따뜻한 것으로 주세요.",
-      note: "온도를 선택할 때 쓰는 표현이에요.",
+    const unchanged = {
+      ...review.feedback[0],
+      messageId: messages[1].id,
+      original: messages[1].text,
+      improved: messages[1].text,
+      explanation: "현재 문장은 자연스럽게 뜻을 전달해요.",
+      category: "자연스러움",
     };
-    for (const field of ["meaning", "note"]) {
+    for (const corrections of [[unchanged, ...review.feedback], [unchanged]]) {
       provider.mockResolvedValueOnce(
-        responseJson({ ...hint, [field]: untranslated }),
+        responseJson({ ...review, feedback: corrections }),
       );
-      const response = await post("/api/hint", {
-        config: { ...session, language: "ja" },
-        messages,
-      });
-      expect(response.status).toBe(502);
-      expect((await response.json()).code).toBe("PROVIDER_INVALID");
+      const response = await post("/api/review", { config: session, messages });
+      expect(response.status).toBe(200);
+      const result = await response.json();
+      expect(result.insufficient).toBe(false);
+      expect(result.feedback).toEqual(
+        corrections.length === 1 ? [] : review.feedback,
+      );
     }
+    provider.mockResolvedValueOnce(
+      responseJson({
+        ...review,
+        feedback: [{ ...unchanged, messageId: "invented-id" }],
+      }),
+    );
+    const response = await post("/api/review", { config: session, messages });
+    expect(response.status).toBe(502);
+    expect((await response.json()).code).toBe("UNGROUNDED_REVIEW");
   });
+
+  it.each([
+    "自然な表現です。",
+    "自然な表現です。申し訳ありません。以上です。가",
+    "「自然な表現です。申し訳ありません。以上です。」가",
+    "Both sentences are natural. Thank you for your practice.가",
+    "自然な表現です。申し訳ありません。以上です。".repeat(6) + "괜찮아요.",
+  ])(
+    "rejects foreign explanations even when padded with Korean: %s",
+    async (untranslated) => {
+      const { provider, post } = await start();
+      const invalidReviews = [
+        { ...review, summary: untranslated },
+        {
+          ...review,
+          feedback: [{ ...review.feedback[0], explanation: untranslated }],
+        },
+        {
+          ...review,
+          assessment: Object.fromEntries(
+            Object.keys(review.assessment).map((field) => [
+              field,
+              untranslated,
+            ]),
+          ),
+        },
+        ...Object.keys(review.assessment).map((field) => ({
+          ...review,
+          assessment: { ...review.assessment, [field]: untranslated },
+        })),
+      ];
+      for (const invalid of invalidReviews) {
+        provider.mockResolvedValueOnce(responseJson(invalid));
+        const response = await post("/api/review", {
+          config: session,
+          messages,
+        });
+        expect(response.status).toBe(502);
+        expect((await response.json()).code).toBe("PROVIDER_INVALID");
+      }
+      const hint = {
+        text: "ホットでお願いします。",
+        meaning: "따뜻한 것으로 주세요.",
+        note: "온도를 선택할 때 쓰는 표현이에요.",
+      };
+      for (const field of ["meaning", "note"]) {
+        provider.mockResolvedValueOnce(
+          responseJson({ ...hint, [field]: untranslated }),
+        );
+        const response = await post("/api/hint", {
+          config: { ...session, language: "ja" },
+          messages,
+        });
+        expect(response.status).toBe(502);
+        expect((await response.json()).code).toBe("PROVIDER_INVALID");
+      }
+    },
+  );
 
   it("preserves Japanese examples and corrections while requiring Korean explanation fields in both schemas", async () => {
     const { provider, post } = await start();
@@ -741,7 +789,8 @@ describe("provider contracts without live API usage", () => {
           messageId: japanese[0].id,
           original: japanese[0].text,
           improved: "ホットのカフェラテを1杯お願いします。",
-          explanation: "음료를 셀 때는 1杯라는 표현도 쓸 수 있어요.",
+          explanation:
+            "「ホットのカフェラテを1杯お願いします。」는 같은 뜻의 선택 표현이에요.",
           category: "어휘",
         },
       ],
@@ -779,6 +828,46 @@ describe("provider contracts without live API usage", () => {
     expect(hintProperties.meaning.pattern).toBe("[가-힣]");
     expect(hintProperties.note.pattern).toBe("[가-힣]");
     expect(hintProperties.text.pattern).toBeUndefined();
+  });
+
+  it("accepts Korean explanations with English quotations and short Korean hint translations", async () => {
+    const { provider, post } = await start();
+    const correction = {
+      ...review,
+      summary: '"I go to park yesterday."는 과거형을 고쳐요.',
+      feedback: [
+        {
+          ...review.feedback[0],
+          explanation:
+            '"I went to the park yesterday."는 같은 뜻의 교정이에요.',
+        },
+      ],
+    };
+    provider.mockResolvedValueOnce(responseJson(correction));
+    const response = await post("/api/review", { config: session, messages });
+    expect(response.status).toBe(200);
+    expect(await response.json()).toEqual(correction);
+
+    for (const hint of [
+      {
+        text: "Could I have a small hot latte to go, please?",
+        meaning: "따뜻한 작은 라테를 포장해 주시겠어요?",
+        note: "“Could I have a small hot latte to go, please?”는 주문할 때 써요.",
+      },
+      {
+        text: "Yes, please.",
+        meaning: "네.",
+        note: "정중하게 동의해요.",
+      },
+    ]) {
+      provider.mockResolvedValueOnce(responseJson(hint));
+      const hintResponse = await post("/api/hint", {
+        config: session,
+        messages,
+      });
+      expect(hintResponse.status).toBe(200);
+      expect(await hintResponse.json()).toEqual(hint);
+    }
   });
 
   it("supports Japanese evidence without English word-count assumptions", () => {

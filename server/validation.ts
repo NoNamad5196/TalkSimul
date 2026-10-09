@@ -73,9 +73,9 @@ const koreanOutputText = (maximum: number) =>
   outputText(maximum)
     .regex(/[가-힣]/)
     .describe(
-      "한국어로 작성하는 설명입니다. 학습 언어가 일본어여도 한국어를 사용합니다.",
+      "설명 본문은 짧고 완결된 한국어 문장입니다. 필요한 외국어 표현만 따옴표로 인용합니다. 일본어 설명 뒤에 한글만 붙이지 않습니다.",
     );
-export const hintSchema = z
+const hintOutputSchema = z
   .object({
     text: outputText(1200),
     meaning: koreanOutputText(1200),
@@ -83,7 +83,7 @@ export const hintSchema = z
   })
   .strict();
 
-export const reviewSchema = z
+const reviewOutputSchema = z
   .object({
     summary: koreanOutputText(1600),
     feedback: z
@@ -120,8 +120,62 @@ export const reviewSchema = z
   })
   .strict();
 
-// Structured Outputs requires every field in an object to be required.
-export const hintJsonSchema = z.toJSONSchema(hintSchema, { target: "draft-7" });
-export const reviewJsonSchema = z.toJSONSchema(reviewSchema, {
+// Use only representable checks in provider JSON Schema. The locale checks below
+// run after parsing; they are a prose-format guard, not a language-quality score.
+export const hintJsonSchema = z.toJSONSchema(hintOutputSchema, {
   target: "draft-7",
+});
+export const reviewJsonSchema = z.toJSONSchema(reviewOutputSchema, {
+  target: "draft-7",
+});
+
+function isKoreanProse(value: string, shortTranslation = false): boolean {
+  const prose = value.replace(
+    /"[^"\r\n]*"|'[^'\r\n]*'|“[^”]*”|‘[^’]*’|「[^」]*」|『[^』]*』|`[^`]*`/g,
+    (quote) => (/[가-힣]/.test(quote) ? quote : ""),
+  );
+  const hangul = prose.match(/[가-힣]/g)?.length ?? 0;
+  const letters = prose.match(/\p{L}/gu)?.length ?? 0;
+  // Keep short translations such as "네." valid, while rejecting foreign prose
+  // padded with one Hangul character. Common unquoted terms (e.g. went) may stay.
+  if (shortTranslation && /^[가-힣]+$/.test(value.replace(/[^\p{L}]/gu, "")))
+    return true;
+  return hangul >= 3 && hangul / Math.max(letters, 1) >= 0.4;
+}
+
+export const hintSchema = hintOutputSchema.superRefine((hint, ctx) => {
+  for (const field of ["meaning", "note"] as const) {
+    if (!isKoreanProse(hint[field], field === "meaning")) {
+      ctx.addIssue({
+        code: "custom",
+        path: [field],
+        message: "A concise Korean explanation is required",
+      });
+    }
+  }
+});
+
+export const reviewSchema = reviewOutputSchema.superRefine((review, ctx) => {
+  const fields: [string, (string | number)[]][] = [
+    [review.summary, ["summary"]],
+    ...review.feedback.map((feedback, index): [string, (string | number)[]] => [
+      feedback.explanation,
+      ["feedback", index, "explanation"],
+    ]),
+    ...Object.entries(review.assessment).map(
+      ([field, value]): [string, (string | number)[]] => [
+        value,
+        ["assessment", field],
+      ],
+    ),
+  ];
+  for (const [value, path] of fields) {
+    if (!isKoreanProse(value)) {
+      ctx.addIssue({
+        code: "custom",
+        path,
+        message: "A concise Korean explanation is required",
+      });
+    }
+  }
 });
