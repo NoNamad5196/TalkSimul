@@ -7,65 +7,23 @@
   "ssoProtection": "all",
   "projectId": "prj_Ubt9XWZ1axL2ubkWqLa3uSfirkjB",
   "team": "nonamad5196s-projects",
-  "deploymentId": "dpl_9ahbA5fqrLSQoFE2gFonRxCEoUhx",
-  "deploymentUrl": "https://moru-talksimul-mju21r65y-nonamad5196s-projects.vercel.app",
+  "deploymentId": "dpl_81FxZPYMTcmL1U1C4BYztkDVwoyC",
+  "deploymentUrl": "https://moru-talksimul-ghjoub6cc-nonamad5196s-projects.vercel.app",
   "sourceDirectory": ".",
-  "verifiedAt": "2026-10-09T08:05:07.725Z",
+  "verifiedAt": "2026-10-09T09:10:01.502Z",
   "validation": {
+    "unitTests": 109,
+    "serverTests": 32,
     "typecheck": "passed",
     "productionBuild": "passed",
-    "compiledNodeEsmImport": "passed",
-    "unitTestsBeforeFinalCancellationCase": 102,
-    "finalServerTests": 26,
-    "currentTotalUnitTests": 103,
+    "finalProductionApiCalls": 5,
+    "grounding": "Every feedback id and original matched synthetic learner evidence",
+    "semanticInspection": "Cafe hints speak as the customer; explanations are Korean; corrections preserve the original meaning",
+    "voiceE2ERerun": false,
+    "priorVoiceAcceptance": "docs/vercel-live-verification.json",
     "anonymousWebAndApi": "302 to Vercel login",
-    "authenticatedBrowser": "home and AI-ready state verified",
-    "apiChecks": [
-      {
-        "path": "/api/status",
-        "status": 200,
-        "configured": true,
-        "enabled": true
-      },
-      {
-        "path": "/api/hint",
-        "status": 200,
-        "fields": [
-          "text",
-          "meaning",
-          "note"
-        ],
-        "hasKorean": true
-      },
-      {
-        "path": "/api/review",
-        "status": 200,
-        "fields": [
-          "summary",
-          "feedback",
-          "assessment",
-          "insufficient"
-        ],
-        "hasKorean": true
-      },
-      {
-        "path": "/api/speech",
-        "status": 200,
-        "fields": [
-          "audio",
-          "mimeType"
-        ],
-        "audioResponseCharacters": 67620
-      }
-    ],
-    "ttsBytes": 50688,
-    "hostedWebRtcTest": "passed: English and Japanese synthetic speech end to end",
-    "physicalMicrophoneTest": "not-performed",
-    "unitTests": 103,
-    "offlineUiTests": 16,
-    "mobileViewport": "390px review passed for both languages",
-    "historyReload": "transcript and review persisted without microphone restart",
-    "acceptanceReport": "docs/vercel-live-verification.json"
+    "anonymousHintPost": 401,
+    "acceptanceReport": "docs/luna-verification.json"
   },
   "previousDeployment": {
     "title": "모루와 한마디",
@@ -86,5 +44,62 @@
       "bundledWorkerImport": "passed",
       "hostedMicrophoneTest": "not-performed"
     }
+  },
+  "previousVercelDeployment": {
+    "deploymentId": "dpl_9ahbA5fqrLSQoFE2gFonRxCEoUhx",
+    "deploymentUrl": "https://moru-talksimul-mju21r65y-nonamad5196s-projects.vercel.app",
+    "verifiedAt": "2026-10-09T08:05:07.725Z",
+    "validation": {
+      "typecheck": "passed",
+      "productionBuild": "passed",
+      "compiledNodeEsmImport": "passed",
+      "unitTestsBeforeFinalCancellationCase": 102,
+      "finalServerTests": 26,
+      "currentTotalUnitTests": 103,
+      "anonymousWebAndApi": "302 to Vercel login",
+      "authenticatedBrowser": "home and AI-ready state verified",
+      "apiChecks": [
+        {
+          "path": "/api/status",
+          "status": 200,
+          "configured": true,
+          "enabled": true
+        },
+        {
+          "path": "/api/hint",
+          "status": 200,
+          "fields": ["text", "meaning", "note"],
+          "hasKorean": true
+        },
+        {
+          "path": "/api/review",
+          "status": 200,
+          "fields": ["summary", "feedback", "assessment", "insufficient"],
+          "hasKorean": true
+        },
+        {
+          "path": "/api/speech",
+          "status": 200,
+          "fields": ["audio", "mimeType"],
+          "audioResponseCharacters": 67620
+        }
+      ],
+      "ttsBytes": 50688,
+      "hostedWebRtcTest": "passed: English and Japanese synthetic speech end to end",
+      "physicalMicrophoneTest": "not-performed",
+      "unitTests": 103,
+      "offlineUiTests": 16,
+      "mobileViewport": "390px review passed for both languages",
+      "historyReload": "transcript and review persisted without microphone restart",
+      "acceptanceReport": "docs/vercel-live-verification.json"
+    }
+  },
+  "sourceCommit": "558e250fc5da88fcf357c4e7589b0525270ea794",
+  "models": {
+    "text": "gpt-6-luna",
+    "realtime": "gpt-realtime-2.1",
+    "transcription": "gpt-4o-mini-transcribe",
+    "speech": "gpt-4o-mini-tts",
+    "reasoning": "low"
   }
 }

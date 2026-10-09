@@ -1,0 +1,201 @@
+{
+  "checkedAt": "2026-10-09T09:10:01.502Z",
+  "url": "https://moru-talksimul.vercel.app",
+  "deploymentId": "dpl_81FxZPYMTcmL1U1C4BYztkDVwoyC",
+  "sourceCommit": "558e250fc5da88fcf357c4e7589b0525270ea794",
+  "scope": "Hints and conversation reviews only",
+  "models": {
+    "text": "gpt-6-luna",
+    "realtime": "gpt-realtime-2.1",
+    "transcription": "gpt-4o-mini-transcribe",
+    "speech": "gpt-4o-mini-tts",
+    "reasoning": "low"
+  },
+  "validation": {
+    "unitTests": 109,
+    "serverTests": 32,
+    "typecheck": "passed",
+    "productionBuild": "passed",
+    "finalProductionApiCalls": 5,
+    "grounding": "Every feedback id and original matched synthetic learner evidence",
+    "semanticInspection": "Cafe hints speak as the customer; explanations are Korean; corrections preserve the original meaning",
+    "voiceE2ERerun": false,
+    "priorVoiceAcceptance": "docs/vercel-live-verification.json"
+  },
+  "syntheticInputs": {
+    "order": {
+      "config": {
+        "level": "basic",
+        "scenario": "cafe",
+        "mode": "live"
+      },
+      "en": [
+        "What did you do yesterday?",
+        "I goed to a cafe with my friend yesterday.",
+        "What would you like to order today?",
+        "I would like a small hot latte, please."
+      ],
+      "ja": [
+        "昨日は何をしましたか？",
+        "昨日、友達とカフェに行きました。",
+        "今日は何を注文しますか？",
+        "ホットのカフェラテを一つお願いします。"
+      ]
+    },
+    "hotel": {
+      "config": {
+        "language": "ja",
+        "level": "beginner",
+        "scenario": "hotel",
+        "mode": "live"
+      },
+      "ja": [
+        "いらっしゃいませ。ご予約はありますか？",
+        "二泊の予約があります。",
+        "明日は何時に到着しますか？",
+        "明日の午後五時に到着します。"
+      ]
+    },
+    "messageMapping": "Alternating assistant/user; id luna-{language}-{zero-based index}; typed source"
+  },
+  "productionReports": [
+    {
+      "caseName": "order",
+      "checkedAt": "2026-10-09T09:08:18.570Z",
+      "target": "Vercel production",
+      "model": "gpt-6-luna",
+      "checks": [
+        {
+          "language": "en",
+          "endpoint": "hint",
+          "status": 200,
+          "elapsedMs": 2744,
+          "result": {
+            "text": "Could I also get a cookie, please?",
+            "meaning": "쿠키도 하나 주시겠어요?",
+            "note": "음료를 주문한 뒤 간식을 덧붙일 때 “Could I also get…?”이라고 말하면 자연스럽습니다."
+          }
+        },
+        {
+          "language": "en",
+          "endpoint": "review",
+          "status": 200,
+          "elapsedMs": 4381,
+          "result": {
+            "summary": "과거형 동사 오류를 바로잡으면 어제 한 일을 자연스럽게 전달할 수 있어요. 주문 문장은 이미 자연스럽습니다.",
+            "feedback": [
+              {
+                "messageId": "luna-en-1",
+                "original": "I goed to a cafe with my friend yesterday.",
+                "improved": "I went to a cafe with my friend yesterday.",
+                "explanation": "과거형은 규칙적으로 “goed”라고 하지 않고 불규칙 동사 “went”를 사용해요.",
+                "category": "시제"
+              }
+            ],
+            "assessment": {
+              "delivery": "두 발화 모두 전달하려는 뜻을 이해할 수 있어요.",
+              "naturalness": "주문 문장은 자연스럽고, 첫 문장도 동사 형태를 고치면 자연스러워요.",
+              "grammar": "첫 문장에서 “goed”를 “went”로 고치면 과거형이 정확해요.",
+              "vocabulary": "카페 방문과 음료 주문에 필요한 어휘를 적절히 사용했어요."
+            },
+            "insufficient": false
+          }
+        },
+        {
+          "language": "ja",
+          "endpoint": "hint",
+          "status": 200,
+          "elapsedMs": 2967,
+          "result": {
+            "text": "クッキーも一つお願いします。",
+            "meaning": "쿠키도 하나 주세요.",
+            "note": "주문에 다른 메뉴를 덧붙일 때 “も”를 쓰면 자연스럽습니다."
+          }
+        },
+        {
+          "language": "ja",
+          "endpoint": "review",
+          "status": 200,
+          "elapsedMs": 7119,
+          "result": {
+            "summary": "두 발화 모두 자연스럽고 뜻이 잘 전달됩니다. 질문에 맞게 어제 한 일과 오늘 주문할 음료를 각각 답했습니다.",
+            "feedback": [],
+            "assessment": {
+              "delivery": "두 발화 모두 전달하려는 내용이 분명합니다.",
+              "naturalness": "카페에서 사용할 수 있는 자연스러운 표현입니다.",
+              "grammar": "문장 구조와 표현이 적절합니다.",
+              "vocabulary": "상황에 맞는 기본 어휘를 잘 사용했습니다."
+            },
+            "insufficient": false
+          }
+        }
+      ],
+      "providerModels": [],
+      "status": {
+        "configured": true,
+        "enabled": true,
+        "realtimeModel": "gpt-realtime-2.1",
+        "textModel": "gpt-6-luna"
+      }
+    },
+    {
+      "caseName": "hotel",
+      "checkedAt": "2026-10-09T09:08:42.647Z",
+      "target": "Vercel production",
+      "model": "gpt-6-luna",
+      "checks": [
+        {
+          "language": "ja",
+          "endpoint": "review",
+          "status": 200,
+          "elapsedMs": 5393,
+          "result": {
+            "summary": "두 문장 모두 뜻이 잘 전달되고, 도착 시간을 답한 표현도 자연스러워요. 숙박 예약은 더 자연스럽게 말할 수 있도록 한 문장만 다듬었어요.",
+            "feedback": [
+              {
+                "messageId": "luna-ja-1",
+                "original": "二泊の予約があります。",
+                "improved": "二泊の予約をしています。",
+                "explanation": "원문도 뜻은 통하지만, 숙박 예약을 했다는 말은 「予約をしています」라고 하면 더 자연스러워요.",
+                "category": "자연스러움"
+              }
+            ],
+            "assessment": {
+              "delivery": "예약 기간과 도착 시간이 분명하게 전달돼요.",
+              "naturalness": "도착 시간 표현은 자연스럽고, 예약 표현은 조금 다듬으면 더 자연스러워요.",
+              "grammar": "두 문장 모두 문법적으로 이해하기 쉬워요.",
+              "vocabulary": "예약과 도착 시간을 나타내는 기본 표현을 적절히 사용했어요."
+            },
+            "insufficient": false
+          }
+        }
+      ],
+      "providerModels": [],
+      "status": {
+        "configured": true,
+        "enabled": true,
+        "realtimeModel": "gpt-realtime-2.1",
+        "textModel": "gpt-6-luna"
+      }
+    }
+  ],
+  "authentication": {
+    "policy": "Vercel Authentication on all deployments",
+    "canonicalAndDeploymentUrl": {
+      "home": 302,
+      "status": 302,
+      "redirectHost": "vercel.com",
+      "anonymousHintPost": 401
+    }
+  },
+  "resolvedDuringMigration": [
+    "Hint reused the AI cafe staff role; now explicitly coaches the learner/customer.",
+    "Some Japanese review explanations were Japanese or repetitive foreign text with a Hangul suffix; prompts and user task reminders now require Korean, and runtime validation rejects such outputs.",
+    "Unchanged original/improved feedback is omitted only after validating its source evidence."
+  ],
+  "limits": [
+    "Representative synthetic text samples, not a guarantee for every model response.",
+    "Korean prose validation is a formatting heuristic; quoted examples are allowed. Naturalness suggestions remain subjective.",
+    "No new physical microphone, speaker listening, mobile-device, Safari, or Firefox tests."
+  ]
+}
